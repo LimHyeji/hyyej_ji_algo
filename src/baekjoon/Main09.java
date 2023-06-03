@@ -41,7 +41,7 @@ public class Main09 {
         }
 
         @Override
-        public int compareTo(Main9.Condition o) {
+        public int compareTo(Condition o) {
             if (this.likec > o.likec) {
                 return -1;
             } else if (this.likec == o.likec) {
