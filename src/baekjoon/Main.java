@@ -101,15 +101,15 @@ public class Main {
             int size=q.size();
             for(int i=0;i<size;i++) {
                 Node cur=q.poll();
-                if(map[cur.row][cur.col]=='S'){
-                    map[cur.row][cur.col]='.';
-                }
 
                     for (int dir = 0; dir < 4; dir++) {
                         int newR = cur.row + dirR[dir];
                         int newC = cur.col + dirC[dir];
 
-                        if(newR<0||newR>=r||newC<0||newC>=c||map[newR][newC]=='X'||map[newR][newC]=='*'){
+                        /*
+                        다음에 나아갈 것이 S라면 통과하기
+                         */
+                        if(newR<0||newR>=r||newC<0||newC>=c||map[newR][newC]=='X'||map[newR][newC]=='*'||map[newR][newC]=='S'){
                             continue;
                         }
 
@@ -117,10 +117,9 @@ public class Main {
                                 return Integer.toString(cnt + 1);
                             }
 
-                            if (map[newR][newC] == '.') {
+
                                 map[newR][newC] = 'S';
                                 q.add(new Node(newR, newC));
-                            }
 
                     }
                 }
