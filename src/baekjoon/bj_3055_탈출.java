@@ -10,7 +10,7 @@ import java.io.*
 import java.util.*
  */
 
-public class Main {
+public class bj_3055_탈출 {
     /*
     . 빈칸
     * 물
