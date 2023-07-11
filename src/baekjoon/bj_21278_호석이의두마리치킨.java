@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class Main {
+public class bj_21278_호석이의두마리치킨 {
     static BufferedReader in;
     static BufferedWriter out;
     StringBuilder str=new StringBuilder();
