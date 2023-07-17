@@ -16,9 +16,11 @@ public class bj_11404_플로이드 {
         StringTokenizer st=null;
         n=Integer.parseInt(in.readLine());
         distance=new int[n][n];
+
         for(int[] arr:distance){
             Arrays.fill(arr,INF);
         }
+
         m=Integer.parseInt(in.readLine());
         for(int i=0;i<m;i++){
             st=new StringTokenizer(in.readLine());
