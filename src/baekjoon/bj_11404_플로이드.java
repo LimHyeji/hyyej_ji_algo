@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class Main {
+public class bj_11404_플로이드 {
     static int n,m;
     static int[][] distance;
     static int INF=100_000_000;
