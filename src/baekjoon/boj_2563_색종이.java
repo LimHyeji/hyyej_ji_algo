@@ -3,7 +3,7 @@ package baekjoon;
 import java.io.*;
 import java.util.StringTokenizer;
 
-public class bj_2563_색종이 {
+public class boj_2563_색종이 {
     static int n;
     static int[][] board;
     static int res;
