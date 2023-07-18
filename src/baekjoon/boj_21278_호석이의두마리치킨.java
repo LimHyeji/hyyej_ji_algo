@@ -1,11 +1,10 @@
 package baekjoon;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class bj_21278_호석이의두마리치킨 {
+public class boj_21278_호석이의두마리치킨 {
   static int n,m;
   static int[][] distance;
   static int a,b,sum;
