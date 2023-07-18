@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class Main10 {
+public class boj8 {
     static int n, m;
     static ArrayList<Integer>[] g;
     static int max;

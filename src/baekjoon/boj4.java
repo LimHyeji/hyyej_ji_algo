@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class Main06 {
+public class boj4 {
     static int n;
     static char[][] map;
 

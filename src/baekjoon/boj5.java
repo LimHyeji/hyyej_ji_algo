@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class Main07 {
+public class boj5 {
     static char[] input;
     static StringBuilder max;
     static StringBuilder min;

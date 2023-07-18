@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class Main08 {
+public class boj6 {
     static int n;//수열 사이즈
     static long[] arr;//수열
     static boolean[] visit;//방문 배열

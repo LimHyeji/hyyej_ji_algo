@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class Main02 {
+public class boj1 {
     static int w, h;
     static int[] dirR = { 1, 0 };
     static int[] dirC = { 0, 1 };

@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class Main05 {
+public class boj3 {
     /*
      * 왼쪽 서브트리 모든 키는 자기 키보다 작음 오른쪽 서브트리 모든 키는 자기 키보다 큼 왼쪽 오른쪽 서브트리도 이진 검색 트리
      *

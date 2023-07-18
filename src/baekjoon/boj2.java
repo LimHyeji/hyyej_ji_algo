@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class Main04 {
+public class boj2 {
     static int n, m, k;
     static int[] dirR = { -1, 1, 0, 0 };
     static int[] dirC = { 0, 0, -1, 1 };
