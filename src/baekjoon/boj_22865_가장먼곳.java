@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
-public class bj_22865_가장먼곳 {
+public class boj_22865_가장먼곳 {
     static int n,m;
     static class Node implements Comparable<Node>{
         int to;
