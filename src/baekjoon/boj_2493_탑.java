@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.Stack;
 import java.util.StringTokenizer;
 
-public class bj_2493_탑 {
+public class boj_2493_탑 {
     static int n;
     static class Top{
         int num;
