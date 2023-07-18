@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class bj_2146_다리만들기 {
+public class boj_2146_다리만들기 {
     static int n;
     static int[][] map;
     static boolean[][][] visit;
