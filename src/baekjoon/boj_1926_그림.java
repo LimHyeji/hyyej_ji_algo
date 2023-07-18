@@ -5,7 +5,7 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class bj_1926_그림 {
+public class boj_1926_그림 {
     static int n,m;
     static int[][] map;
     static int cnt,area;
