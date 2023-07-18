@@ -3,7 +3,7 @@ package baekjoon;
 import java.io.*;
 import java.util.StringTokenizer;
 
-public class bj_16562_친구비 {
+public class boj_16562_친구비 {
     /*
      * n명,Ai만큼의 돈-> 한달, 총 k원, 친구의 친구, 최소비용
      */
