@@ -3,7 +3,7 @@ package baekjoon;
 import java.io.*;
 import java.util.StringTokenizer;
 
-public class bj_1012_유기농배추 {
+public class boj_1012_유기농배추 {
     static int t,m,n,k;
     static int[][] map;
     static int[] dirR={-1,1,0,0};
