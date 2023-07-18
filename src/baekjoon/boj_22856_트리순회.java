@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-public class Main11 {
+public class boj_22856_트리순회 {
     static int n;
 
     static class Node {
