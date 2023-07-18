@@ -3,7 +3,7 @@ package baekjoon;
 import java.io.*;
 import java.util.StringTokenizer;
 
-public class bj_1004_어린왕자 {
+public class boj_1004_어린왕자 {
     static int t;
     static int x1,y1,x2,y2;
     static int n;
