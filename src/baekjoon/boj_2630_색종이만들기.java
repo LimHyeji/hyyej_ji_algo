@@ -3,7 +3,7 @@ package baekjoon;
 import java.io.*;
 import java.util.StringTokenizer;
 
-public class bj_2630_색종이만들기 {
+public class boj_2630_색종이만들기 {
     static int n;
     static int[][] map;
     static int white,blue;
