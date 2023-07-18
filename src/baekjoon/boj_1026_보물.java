@@ -4,11 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.StringTokenizer;
 
-public class bj_1026_보물 {
+public class boj_1026_보물 {
     static int n;
     static ArrayList<Integer> a;
     static ArrayList<Integer> b;
