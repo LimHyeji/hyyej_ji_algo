@@ -1,10 +1,9 @@
 package baekjoon;
 
 import java.io.*;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class bj_16951_블록놀이 {
+public class boj_16951_블록놀이 {
     static int n,k;
     static int[] arr;
     static int res;
