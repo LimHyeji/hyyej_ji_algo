@@ -3,7 +3,7 @@ package baekjoon;
 import java.io.*;
 import java.util.*;
 
-public class bj_18223_민준이와마산그리고건우 {
+public class boj_18223_민준이와마산그리고건우 {
     static int v,e,p;
     static class Node implements Comparable<Node> {
         int to,cost;
