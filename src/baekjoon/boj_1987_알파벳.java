@@ -3,7 +3,7 @@ package baekjoon;
 import java.io.*;
 import java.util.StringTokenizer;
 
-public class bj_1987_알파벳 {
+public class boj_1987_알파벳 {
     //ascii 65~90
     static int r,c;
     static char[][] board;
