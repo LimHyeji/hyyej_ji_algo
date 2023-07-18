@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class bj_5567_결혼식 {
+public class boj_5567_결혼식 {
     static int n,m;
     static ArrayList<Integer>[] list;
     static int res;
