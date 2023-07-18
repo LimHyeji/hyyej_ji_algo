@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.Stack;
 import java.util.StringTokenizer;
 
-public class bj_1863_스카이라인쉬운거 {
+public class boj_1863_스카이라인쉬운거 {
 
     static int n;
     static Stack<Integer> s;
