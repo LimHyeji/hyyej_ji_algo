@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class bj_1174_줄어드는수 {
+public class boj_1174_줄어드는수 {
     /*
     한자리수이면, n+1 출력
     두자리수 이상이면,
