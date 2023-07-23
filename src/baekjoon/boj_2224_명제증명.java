@@ -3,7 +3,7 @@ package baekjoon;
 import java.io.*;
 import java.util.*;
 
-public class Main {
+public class boj_2224_명제증명 {
     static int n,x;
     static boolean[][] adj;
     static StringBuilder str=new StringBuilder();
