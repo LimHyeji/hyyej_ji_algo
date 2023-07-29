@@ -3,7 +3,7 @@ package baekjoon;
 import java.io.*;
 import java.util.StringTokenizer;
 
-public class Main {
+public class boj_2228_구간나누기 {
     static int n,m;
     static int[][] dp;
 
