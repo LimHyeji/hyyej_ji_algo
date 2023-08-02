@@ -17,11 +17,10 @@ public class boj_5972_택배배송 {
             return Integer.compare(this.cost,o.cost);
         }
     }
-    static PriorityQueue<Node> pq;
     static int n,m;
     static ArrayList<Node>[] g;
+    static PriorityQueue<Node> pq;
     static int[] distance;
-    static boolean[] visit;
 
     public static void main(String[] args) throws IOException {
         BufferedReader in=new BufferedReader(new InputStreamReader(System.in));
@@ -47,11 +46,8 @@ public class boj_5972_택배배송 {
         pq=new PriorityQueue<>();
         distance=new int[n];
         Arrays.fill(distance,Integer.MAX_VALUE);
-        visit=new boolean[n];
 
         sol();
-
-        //System.out.println(Arrays.toString(distance));
 
         out.write(String.valueOf(distance[n-1]));
         out.close();
@@ -66,7 +62,6 @@ public class boj_5972_택배배송 {
             Node cur=pq.poll();
 
             int next=cur.next;
-            int cost=cur.cost;
 
             for(Node node:g[next]){
                 int nnext=node.next;
