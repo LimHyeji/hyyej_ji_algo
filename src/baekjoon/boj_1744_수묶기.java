@@ -6,77 +6,69 @@ import java.util.Collections;
 
 public class boj_1744_수묶기 {
     static int n;
-    static ArrayList<Integer> arr;
+    static ArrayList<Integer> list;
     static int sum;
-    static int res;
+
     public static void main(String[] args) throws IOException {
         BufferedReader in=new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter out=new BufferedWriter(new OutputStreamWriter(System.out));
         n=Integer.parseInt(in.readLine());
-        arr=new ArrayList<>();
-
+        list=new ArrayList<>();
         sum=0;
         for(int i=0;i<n;i++){
             int input=Integer.parseInt(in.readLine());
-            arr.add(input);
-            sum+=input;
+            if(n==1) sum=input;
+            list.add(input);
         }
-        if(n==1){
-            res=arr.get(0);
-        }
-        else{
-            Collections.sort(arr);
-            res=0;
-            sol(n-2,n-1,sum);
-            sol2(0,1,sum);
-        }
+        if(n>1) {
+            Collections.sort(list);
+            boolean[] visit=new boolean[n];
+            for(int i=0;i<n-1;i++){
+                if(visit[i]) continue;
 
-        out.write(String.valueOf(res));
+                //System.out.print(list.get(i)+" ");
+                if(list.get(i)<0){
+                    if(list.get(i+1)<=0){
+                        sum+=list.get(i)*list.get(i+1);
+                        visit[i]=true;
+                        visit[i+1]=true;
+                    }
+                    else{
+                        sum+=list.get(i);
+                        visit[i]=true;
+                    }
+                }
+                else if(list.get(i)==0){
+                    if(list.get(i+1)==0){
+                        //더할 필요 없음
+                        visit[i]=true;
+                        visit[i+1]=true;
+                    }
+                    else{
+                        //더할 필요 없음
+                        visit[i]=true;
+                    }
+                }
+                else{
+                    if(list.get(i)==1){
+                        sum+=list.get(i);
+                        visit[i]=true;
+                    }
+                    else if((n-i+1)%2==1){
+                        sum+=list.get(i)*list.get(i+1);
+                        visit[i]=true;
+                        visit[i+1]=true;
+                    }
+                    else{
+                        sum+=list.get(i);
+                        visit[i]=true;
+                    }
+                }
+            }
+            if(!visit[n-1]) sum+=list.get(n-1);
+        }
+        out.write(String.valueOf(sum));
         out.close();
         in.close();
-    }
-
-    static void sol(int left,int right,int temp){
-        int product=arr.get(left)*arr.get(right);
-        if(temp-arr.get(left)-arr.get(right)+product>temp){
-            if(left-2<0) {
-                res=Math.max(res,temp-arr.get(left)-arr.get(right)+product);
-                return;
-            }
-             else{
-                 sol(left - 2, right - 2, temp - arr.get(left) - arr.get(right) + product);
-            }
-        }
-        else{
-            if(left-1<0) {
-                res=Math.max(res,temp);
-                return;
-            }
-             else{
-                 sol(left - 1, right - 1, temp);
-            }
-        }
-    }
-
-    static void sol2(int left,int right,int temp){
-        int product=arr.get(left)*arr.get(right);
-        if(temp-arr.get(left)-arr.get(right)+product>temp){
-            if(right+2>=n){
-                res=Math.max(res,temp-arr.get(left)-arr.get(right)+product);
-                return;
-            }
-            else{
-                sol(left+2,right+2,temp-arr.get(left)-arr.get(right)+product);
-            }
-        }
-        else{
-            if(right+1>=n){
-                res=Math.max(res,temp);
-                return;
-            }
-            else{
-                sol(left+1,right+1,temp);
-            }
-        }
     }
 }
