@@ -1,76 +1,79 @@
 package baekjoon;
 
+
 import java.io.*;
-import java.util.ArrayDeque;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class boj_13913_숨바꼭질4 {
     static int n,k;
     static class Node{
-        int pos,cost;
-        int [] path;
-        Node(int pos,int cost, int[] path){
-            this.pos=pos;
-            this.cost=cost;
-            this.path=path;
+        int cur;
+        int cnt;
+
+        Node(int cur,int cnt){
+            this.cur=cur;
+            this.cnt=cnt;
         }
     }
-    static boolean[] visit;
-    static int[] path;
-    static StringBuilder str=new StringBuilder();
+    static ArrayList<Integer>[] path;
 
     public static void main(String[] args) throws IOException {
         BufferedReader in=new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter out=new BufferedWriter(new OutputStreamWriter(System.out));
         StringTokenizer st=new StringTokenizer(in.readLine());
+        StringBuilder str=new StringBuilder();
+
         n=Integer.parseInt(st.nextToken());
         k=Integer.parseInt(st.nextToken());
 
-        visit=new boolean[100_001];
-        path=new int[100_001];
+        Queue<Node> q=new ArrayDeque<>();
+        boolean[] visit=new boolean[100_001];
 
+        path=new ArrayList[100_001];
+        for(int i=0;i<100_001;i++){
+            path[i]=new ArrayList<>();
+        }
+
+        q.add(new Node(n,0));
         visit[n]=true;
-        path[0]=n;
-        sol(n,0);
+        path[n].add(n);
+
+        while(!q.isEmpty()){
+            Node cur=q.poll();
+
+            if(cur.cur==k){
+                str.append(cur.cnt).append("\n");
+                for(int e:path[k]){
+                    str.append(e).append(" ");
+                }
+                break;
+            }
+
+            if(cur.cur-1>=0&&!visit[cur.cur-1]){
+                q.add(new Node(cur.cur-1,cur.cnt+1));
+                visit[cur.cur-1]=true;
+                path[cur.cur-1].addAll(path[cur.cur]);
+                path[cur.cur-1].add(cur.cur-1);
+            }
+
+            if(cur.cur+1<100_001&&!visit[cur.cur+1]){
+                q.add(new Node(cur.cur+1,cur.cnt+1));
+                visit[cur.cur+1]=true;
+                path[cur.cur+1].addAll(path[cur.cur]);
+                path[cur.cur+1].add(cur.cur+1);
+            }
+
+            if(cur.cur*2<100_001&&!visit[cur.cur*2]){
+                q.add(new Node(cur.cur*2,cur.cnt+1));
+                visit[cur.cur*2]=true;
+                path[cur.cur*2].addAll(path[cur.cur]);
+                path[cur.cur*2].add(cur.cur*2);
+            }
+        }
+
         out.write(str.toString());
         out.close();
         in.close();
     }
 
-    static void sol(int n, int cnt){
-        if(cnt>100_000) return;
-        if(n==k){
-            str.append(cnt).append("\n");
-            for(int i=0;i<cnt;i++){
-                str.append(path[i]).append(" ");
-            }
-
-            return;
-        }
-
-        if(n-1>0&&!visit[n-1]){
-            path[cnt+1]=n-1;
-            visit[n-1]=true;
-            sol(n-1,cnt+1);
-            visit[n-1]=false;
-            path[cnt+1]=0;
-        }
-
-        if(n+1<100_001&&!visit[n+1]){
-            path[cnt+1]=n+1;
-            visit[n+1]=true;
-            sol(n+1,cnt+1);
-            visit[n+1]=false;
-            path[cnt+1]=0;
-        }
-
-        if(n*2<100_001&&!visit[n*2]){
-            path[cnt+1]=n*2;
-            visit[n*2]=true;
-            sol(n*2,cnt+1);
-            visit[n*2]=false;
-            path[cnt+1]=0;
-        }
-    }
 }
