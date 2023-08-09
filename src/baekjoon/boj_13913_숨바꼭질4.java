@@ -15,7 +15,7 @@ public class boj_13913_숨바꼭질4 {
             this.cnt=cnt;
         }
     }
-    static ArrayList<Integer>[] path;
+    static int[] path;
 
     public static void main(String[] args) throws IOException {
         BufferedReader in=new BufferedReader(new InputStreamReader(System.in));
@@ -29,22 +29,29 @@ public class boj_13913_숨바꼭질4 {
         Queue<Node> q=new ArrayDeque<>();
         boolean[] visit=new boolean[100_001];
 
-        path=new ArrayList[100_001];
-        for(int i=0;i<100_001;i++){
-            path[i]=new ArrayList<>();
-        }
+        path=new int[100_001];
 
         q.add(new Node(n,0));
         visit[n]=true;
-        path[n].add(n);
+        Arrays.fill(path,-1);
+        path[n]=0;
 
         while(!q.isEmpty()){
             Node cur=q.poll();
 
             if(cur.cur==k){
+                Stack<Integer> stack=new Stack<>();
+                stack.add(k);
+
+                int n=path[k];
+                while(n!=0){
+                    stack.add(n);
+                    n=path[n];
+                }
+
                 str.append(cur.cnt).append("\n");
-                for(int e:path[k]){
-                    str.append(e).append(" ");
+                while(!stack.isEmpty()){
+                    str.append(stack.pop()).append(" ");
                 }
                 break;
             }
@@ -52,22 +59,19 @@ public class boj_13913_숨바꼭질4 {
             if(cur.cur-1>=0&&!visit[cur.cur-1]){
                 q.add(new Node(cur.cur-1,cur.cnt+1));
                 visit[cur.cur-1]=true;
-                path[cur.cur-1].addAll(path[cur.cur]);
-                path[cur.cur-1].add(cur.cur-1);
+                path[cur.cur-1]=cur.cur;
             }
 
             if(cur.cur+1<100_001&&!visit[cur.cur+1]){
                 q.add(new Node(cur.cur+1,cur.cnt+1));
                 visit[cur.cur+1]=true;
-                path[cur.cur+1].addAll(path[cur.cur]);
-                path[cur.cur+1].add(cur.cur+1);
+                path[cur.cur+1]=cur.cur;
             }
 
             if(cur.cur*2<100_001&&!visit[cur.cur*2]){
                 q.add(new Node(cur.cur*2,cur.cnt+1));
                 visit[cur.cur*2]=true;
-                path[cur.cur*2].addAll(path[cur.cur]);
-                path[cur.cur*2].add(cur.cur*2);
+                path[cur.cur*2]=cur.cur;
             }
         }
 
