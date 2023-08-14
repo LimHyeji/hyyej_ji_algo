@@ -15,6 +15,8 @@ public class boj_2581_소수 {
         n=Integer.parseInt(in.readLine());
         min=-1;
         sum=0;
+
+        if(m==1)m=2;
         for(int i=m;i<=n;i++){
             if(check(i)){
                 if(min==-1) min=i;
