@@ -26,6 +26,7 @@ public class boj_21939_문제추천시스템버전1 {
         }
     }
     static TreeSet<Problem> problems;
+    static HashMap<Integer,Integer> numlevel;
 
     public static void main(String[] args) throws IOException {
         BufferedReader in=new BufferedReader(new InputStreamReader(System.in));
@@ -35,14 +36,14 @@ public class boj_21939_문제추천시스템버전1 {
 
         n=Integer.parseInt(in.readLine());
         problems=new TreeSet<>();
+        numlevel=new HashMap<>();
         for(int i=0;i<n;i++){
             st=new StringTokenizer(in.readLine());
             int p=Integer.parseInt(st.nextToken());
             int l=Integer.parseInt(st.nextToken());
             problems.add(new Problem(p,l));
+            numlevel.put(p,l);
         }
-
-        problems.
 
         m=Integer.parseInt(in.readLine());
         for(int i=0;i<m;i++){
@@ -52,21 +53,21 @@ public class boj_21939_문제추천시스템버전1 {
                 int p=Integer.parseInt(st.nextToken());
                 int l=Integer.parseInt(st.nextToken());
 
-                problems.put(p,new Problem(p,l));
-
+                problems.add(new Problem(p,l));
+                numlevel.put(p,l);
             }
             else if(cmd.equals("recommend")){
                 int x=Integer.parseInt(st.nextToken());
                 if(x==1){
-                    str.append(problems.firstEntry().getValue().num).append("\n");
+                    str.append(problems.first().num).append("\n");
                 }
                 else if(x==-1){
-                    str.append(problems.lastEntry().getValue().num).append("\n");
+                    str.append(problems.last().num).append("\n");
                 }
             }
             else if(cmd.equals("solved")){
                 int p=Integer.parseInt(st.nextToken());
-                problems.remove(p);
+                problems.remove(new Problem(p,numlevel.get(p)));
             }
         }
 
