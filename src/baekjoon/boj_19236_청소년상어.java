@@ -25,8 +25,8 @@ public class boj_19236_청소년상어 {
         }
     }
     static HashMap<Integer,Fish> fish;
-    static Queue<Node> q;
     static int res;
+    static int cnt;
 
     public static void main(String[] args) throws IOException {
         BufferedReader in=new BufferedReader(new InputStreamReader(System.in));
@@ -45,15 +45,21 @@ public class boj_19236_청소년상어 {
             }
         }
 
-        q=new ArrayDeque<>();
-        q.add(new Node(0,0,fish.get(map[0][0]).dir,map[0][0]));
-        res=map[0][0];
+        int temp=map[0][0];
+        res=temp;
+
+        int tempDir=fish.get(map[0][0]).dir;
 
         fish.remove(map[0][0]);
         map[0][0]=-1;
 
-        move();
-        hunt();
+        cnt=0;
+        while(cnt<50) {
+            move();
+            dfs(new Node(0, 0, tempDir, temp), map);
+            check();
+            print(map);
+        }
         out.write(String.valueOf(res));
         out.close();
         in.close();
@@ -62,33 +68,25 @@ public class boj_19236_청소년상어 {
 
     static void move(){
         for(int i=1;i<=16;i++){
-            System.out.println("I :: "+i);
-
             if(fish.get(i)==null) continue;
 
             int curRow=fish.get(i).row;
             int curCol=fish.get(i).col;
             int curDir=fish.get(i).dir;
-            System.out.println("DIRECTION :: "+curDir);
 
-            int cnt=0;
-            for(int dir=curDir;dir<8;dir++){
-                cnt++;
-                if(cnt>8) break;
-
-                if(dir==7) dir%=8;
+            int dir=curDir;
+            for(int j=0;j<8;j++, dir++, dir%=8){
 
                 int newRow=dirR[dir]+curRow;
                 int newCol=dirC[dir]+curCol;
 
                 if(newRow<0||newRow>=4||newCol<0||newCol>=4||map[newRow][newCol]==-1) continue;
-                System.out.println("NEW :: "+dir);
 
                 int newDir=fish.get(map[newRow][newCol]).dir;
 
                 if(map[newRow][newCol]>0){
-                    fish.put(i,new Fish(newRow,newCol,newDir));
-                    fish.put(map[newRow][newCol],new Fish(curRow,curCol,curDir));
+                    fish.put(i,new Fish(newRow,newCol,curDir));
+                    fish.put(map[newRow][newCol],new Fish(curRow,curCol,newDir));
                     map[curRow][curCol]=map[newRow][newCol];
                     map[newRow][newCol]=i;
 
@@ -101,40 +99,38 @@ public class boj_19236_청소년상어 {
                     break;
                 }
             }
-
-            print();
         }
     }
 
-    static void hunt(){
-        Queue<Node> q=new ArrayDeque<>();
+    static void dfs(Node cur,int[][] tmpMap) {
+        cnt++;
+        int curRow = cur.row;
+        int curCol = cur.col;
+        int curDir = cur.dir;
+        int curRes = cur.res;
 
-        while(!q.isEmpty()){
-            Node cur=q.poll();
-
-            int curRow=cur.row;
-            int curCol=cur.col;
-            int curDir=cur.dir;
-            int curRes=cur.res;
-
-            res=Math.max(curRes,res);
-
-            int newR=dirR[curDir]+curRow;
-            int newC=dirC[curDir]+curCol;
-
-            if(newR<0||newR>=4||newC<0||newC>=4||map[newR][newC]<=0) continue;
-
-            int newDir=fish.get(map[newR][newC]).dir;
-
-            q.add(new Node(newR,newC,newDir,curRes+map[newR][newC]));
-
-            fish.remove(map[newR][newC]);
-            map[newR][newC]=-1;
-
+        if(res<curRes){
+            map=tmpMap;
+            res=curRes;
         }
+
+        for (int i = 1; i <= 3; i++) {
+            int newR = dirR[curDir] * i + curRow;
+            int newC = dirC[curDir] * i + curCol;
+
+            if (newR < 0 || newR >= 4 || newC < 0 || newC >= 4 || tmpMap[newR][newC] <= 0) continue;
+
+            int newDir = fish.get(tmpMap[newR][newC]).dir;
+
+            int temp = tmpMap[newR][newC];
+            int[][] copy=tmpMap;
+            copy[newR][newC] = -1;
+            dfs(new Node(newR, newC, newDir, curRes + temp), copy);
+        }
+
     }
 
-    static void print()
+    static void print(int[][] map)
     {
         for(int i=0;i<4;i++){
             for(int j=0;j<4;j++){
@@ -143,5 +139,15 @@ public class boj_19236_청소년상어 {
             System.out.println();
         }
         System.out.println();
+    }
+
+    static void check(){
+        for(int i=0;i<4;i++){
+            for(int j=0;j<4;j++){
+                if(map[i][j]==-1&&fish.get(map[i][j])!=null){
+                    fish.remove(map[i][j]);
+                }
+            }
+        }
     }
 }
