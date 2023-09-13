@@ -7,26 +7,29 @@ public class boj_19236_청소년상어 {
     static int[] dirR={-1,-1,0,1,1,1,0,-1};
     static int[] dirC={0,-1,-1,-1,0,1,1,1};
     static int[][] map;
-    static class Node{
-        int row,col,dir,res;
-        Node(int row,int col,int dir,int res){
+
+    static class Shark{
+        int row,col,dir,eat;
+        Shark(int row,int col,int dir,int eat){
             this.row=row;
             this.col=col;
             this.dir=dir;
-            this.res=res;
+            this.eat=eat;
         }
     }
+
     static class Fish{
         int row,col,dir;
-        Fish(int row,int col,int dir){
+        boolean dead;
+        Fish(int row,int col,int dir,boolean dead){
             this.row=row;
             this.col=col;
             this.dir=dir;
+            this.dead=dead;
         }
     }
     static HashMap<Integer,Fish> fish;
     static int res;
-    static int cnt;
 
     public static void main(String[] args) throws IOException {
         BufferedReader in=new BufferedReader(new InputStreamReader(System.in));
@@ -35,119 +38,116 @@ public class boj_19236_청소년상어 {
 
         map=new int[4][4];
         fish=new HashMap<>();
+
         for(int i=0;i<4;i++){
             st=new StringTokenizer(in.readLine());
             for(int j=0;j<4;j++){
                 int num=Integer.parseInt(st.nextToken());
                 int dir=Integer.parseInt(st.nextToken())-1;
-                fish.put(num,new Fish(i,j,dir));
+                fish.put(num,new Fish(i,j,dir,false));
                 map[i][j]=num;
             }
         }
 
-        int temp=map[0][0];
-        res=temp;
+        int first=map[0][0];
+        Fish firstFish=fish.get(first);
+        Shark shark=new Shark(0,0,firstFish.dir,first);
 
-        int tempDir=fish.get(map[0][0]).dir;
-
-        fish.remove(map[0][0]);
+        firstFish.dead=true;
         map[0][0]=-1;
+        fish.put(first,firstFish);
 
-        cnt=0;
-        while(cnt<50) {
-            move();
-            dfs(new Node(0, 0, tempDir, temp), map);
-            check();
-            print(map);
-        }
+        dfs(shark, map, fish);
+
         out.write(String.valueOf(res));
         out.close();
         in.close();
-
     }
 
-    static void move(){
+    static void dfs(Shark cur,int[][] tmpMap, HashMap<Integer,Fish> fish) {
+        res=Math.max(res, cur.eat);
+
+        move(tmpMap,fish);
+
+        for (int i = 1; i <= 3; i++) {
+            int newR = cur.row+dirR[cur.dir]*i;
+            int newC = cur.col+dirC[cur.dir]*i;
+
+            if (newR < 0 || newR >= 4 || newC < 0 || newC >= 4 || tmpMap[newR][newC] <= 0) continue;
+
+            int[][] copyArr=copyArr(tmpMap);
+            HashMap<Integer,Fish> copyFish=copyFish(fish);
+
+            int num=copyArr[newR][newC];
+
+            copyArr[cur.row][cur.col]=0;
+            copyArr[newR][newC] = -1;
+
+            Fish newFish=copyFish.get(num);
+            Shark newShark=new Shark(newFish.row,newFish.col,newFish.dir,cur.eat+num);
+
+            newFish.dead=true;
+            copyFish.put(num,newFish);
+
+            dfs(newShark, copyArr, copyFish);
+        }
+    }
+
+    static void move(int[][] map, HashMap<Integer,Fish> fish){
         for(int i=1;i<=16;i++){
-            if(fish.get(i)==null) continue;
+            if(fish.get(i).dead) continue;
 
-            int curRow=fish.get(i).row;
-            int curCol=fish.get(i).col;
-            int curDir=fish.get(i).dir;
+            int curR=fish.get(i).row;
+            int curC=fish.get(i).col;
+            int curD=fish.get(i).dir;
 
-            int dir=curDir;
+            int dir=curD;
             for(int j=0;j<8;j++, dir++, dir%=8){
 
-                int newRow=dirR[dir]+curRow;
-                int newCol=dirC[dir]+curCol;
+                int newR=dirR[dir]+curR;
+                int newC=dirC[dir]+curC;
 
-                if(newRow<0||newRow>=4||newCol<0||newCol>=4||map[newRow][newCol]==-1) continue;
+                if(newR<0||newR>=4||newC<0||newC>=4||map[newR][newC]==-1) continue;
 
-                int newDir=fish.get(map[newRow][newCol]).dir;
+                if(map[newR][newC]>0){
+                    int tempNum=map[newR][newC];
+                    Fish temp=fish.get(tempNum);
+                    temp.row=curR;
+                    temp.col=curC;
+                    map[curR][curC]=tempNum;
 
-                if(map[newRow][newCol]>0){
-                    fish.put(i,new Fish(newRow,newCol,curDir));
-                    fish.put(map[newRow][newCol],new Fish(curRow,curCol,newDir));
-                    map[curRow][curCol]=map[newRow][newCol];
-                    map[newRow][newCol]=i;
+                    fish.put(i,new Fish(newR,newC,dir,false));
+                    fish.put(tempNum,temp);
+
+                    map[newR][newC]=i;
 
                     break;
                 }
                 else{
-                    fish.put(i,new Fish(newRow,newCol,newDir));
-                    map[curRow][curCol]=0;
-                    map[newRow][newCol]=i;
+                    fish.put(i,new Fish(newR,newC,dir,false));
+                    map[curR][curC]=0;
+                    map[newR][newC]=i;
                     break;
                 }
             }
         }
     }
 
-    static void dfs(Node cur,int[][] tmpMap) {
-        cnt++;
-        int curRow = cur.row;
-        int curCol = cur.col;
-        int curDir = cur.dir;
-        int curRes = cur.res;
-
-        if(res<curRes){
-            map=tmpMap;
-            res=curRes;
-        }
-
-        for (int i = 1; i <= 3; i++) {
-            int newR = dirR[curDir] * i + curRow;
-            int newC = dirC[curDir] * i + curCol;
-
-            if (newR < 0 || newR >= 4 || newC < 0 || newC >= 4 || tmpMap[newR][newC] <= 0) continue;
-
-            int newDir = fish.get(tmpMap[newR][newC]).dir;
-
-            int temp = tmpMap[newR][newC];
-            int[][] copy=tmpMap;
-            copy[newR][newC] = -1;
-            dfs(new Node(newR, newC, newDir, curRes + temp), copy);
-        }
-
-    }
-
-    static void print(int[][] map)
-    {
+    static int[][] copyArr(int[][] map) {
+        int[][] copy=new int[4][4];
         for(int i=0;i<4;i++){
             for(int j=0;j<4;j++){
-                System.out.print(map[i][j]+" ");
+                copy[i][j]=map[i][j];
             }
-            System.out.println();
         }
-        System.out.println();
+        return copy;
     }
 
-    static void check(){
-        for(int i=0;i<4;i++){
-            for(int j=0;j<4;j++){
-                if(map[i][j]==-1&&fish.get(map[i][j])!=null){
-                    fish.remove(map[i][j]);
-                }
-            }
+    static HashMap<Integer,Fish> copyFish(HashMap<Integer,Fish> fish){
+        HashMap<Integer,Fish> copy=new HashMap<>();
+        for(int i=1;i<=16;i++){
+            copy.put(i,fish.get(i));
         }
+        return copy;
     }
 }
