@@ -46,11 +46,10 @@ public class boj_6068_시간관리하기 {
                 start=works.get(i).end-works.get(i).time;
             }
 
-            System.out.println("START :: "+start);
-            System.out.println("NEXT START :: "+nextStart);
             nextStart=start;
             res=start;
         }
+        if(res<0) res=-1;
 
         out.write(String.valueOf(res));
         out.close();
