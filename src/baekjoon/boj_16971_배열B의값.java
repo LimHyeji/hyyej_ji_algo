@@ -5,8 +5,7 @@ import java.util.StringTokenizer;
 
 public class boj_16971_배열B의값 {
     static int n,m;
-    static int[][] arr;
-    static int[][] copy;
+    static int[][] arr,copy;
     static int[] rowSum,colSum;
 
     public static void main(String[] args) throws IOException {
@@ -18,7 +17,7 @@ public class boj_16971_배열B의값 {
         m=Integer.parseInt(st.nextToken());
         arr=new int[n][m];
         rowSum=new int[n];
-        colSum=new int[n];
+        colSum=new int[m];
 
         for(int i=0;i<n;i++){
             st=new StringTokenizer(in.readLine());
@@ -34,8 +33,8 @@ public class boj_16971_배열B의값 {
 
         int total = calMapB(arr);
 
-        for(int i = 0 ; i < n ; ++i){
-            for(int j = 0 ; j < n ; ++j){
+        for(int i = 0 ; i < n ; i++){
+            for(int j = 0 ; j < n ; j++){
                 rowSum[i] += arr[i][j];
                 colSum[j] += arr[i][j];
             }
@@ -96,8 +95,8 @@ public class boj_16971_배열B의값 {
 
     private static void setCopyMap(boolean flag, int idx1, int idx2){
         copy = new int[n][m];
-        for(int i = 0 ; i < n ; ++i){
-            for(int j = 0 ; j < m ; ++j){
+        for(int i = 0 ; i < n ; i++){
+            for(int j = 0 ; j < m ; j++){
                 copy[i][j] = arr[i][j];
             }
         }
