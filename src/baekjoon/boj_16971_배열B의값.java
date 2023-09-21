@@ -34,7 +34,7 @@ public class boj_16971_배열B의값 {
         int total = calMapB(arr);
 
         for(int i = 0 ; i < n ; i++){
-            for(int j = 0 ; j < n ; j++){
+            for(int j = 0 ; j < m ; j++){
                 rowSum[i] += arr[i][j];
                 colSum[j] += arr[i][j];
             }
