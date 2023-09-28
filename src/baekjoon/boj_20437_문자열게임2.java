@@ -12,7 +12,7 @@ public class boj_20437_문자열게임2 {
         BufferedReader in=new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter out=new BufferedWriter(new OutputStreamWriter(System.out));
         t=Integer.parseInt(in.readLine());
-        for(int test_case=1;test_case<t;test_case++){
+        for(int test_case=1;test_case<=t;test_case++){
             int min=Integer.MAX_VALUE,max=-1;
             count=new ArrayList[26];
             for(int i=0;i<26;i++){
@@ -30,13 +30,15 @@ public class boj_20437_문자열게임2 {
             for(int i=0;i<26;i++){
                 if(count[i].size()==k){
                     int last=count[i].size()-1;
-                    //min=max=count[i].get(last)-count[i].get(0);
+                    min=Math.min(min,count[i].get(last)-count[i].get(0)+1);
+                    max=Math.max(max,count[i].get(last)-count[i].get(0)+1);
                 }
                 else if(count[i].size()>k){
                     int size=count[i].size();
                     size-=k;
-                    for(int j=0;j<size;j++){
-                       // min=
+                    for(int j=0;j<=size;j++){
+                       min=Math.min(min,count[i].get(j+k-1)-count[i].get(j)+1);
+                       max=Math.max(max,count[i].get(j+k-1)-count[i].get(j)+1);
                     }
                 }
             }
