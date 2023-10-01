@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class 구명보트 {
-    import java.util.*;
 
     class Solution {
         public int solution(int[] people, int limit) {
