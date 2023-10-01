@@ -28,10 +28,10 @@ public class boj_13460_구슬탈출2 {
         for(int i=0;i<n;i++){
             String input=in.readLine();
             for(int j=0;j<m;j++){
-                if(map[i][j]=='B'){
+                if(input.charAt(j)=='B'){
                     blue=new Node(i,j);
                 }
-                else if(map[i][j]=='R'){
+                else if(input.charAt(j)=='R'){
                     red=new Node(i,j);
                 }
                 else map[i][j]=input.charAt(j);
@@ -55,38 +55,52 @@ public class boj_13460_구슬탈출2 {
             int redC=red.col;
 
             boolean checkBlue=false, checkRed=false;
-            boolean possible=true;
-            while(true){
-                if(checkBlue&&checkRed) break;
+            boolean possible=true, hole=false;
 
-                if(map[blueR+dirR[dir]][blueC+dirC[dir]]!='#'){
+            while(true){
+                if(checkBlue&&checkRed) {
+                    if(blueR==redR&&blueC==redC) possible=false;
+                    break;
+                }
+
+                if(!checkBlue&&(map[blueR+dirR[dir]][blueC+dirC[dir]]=='#'||(checkRed&&blueR+dirR[dir]==redR&&blueC+dirC[dir]==redC))){
+                    checkBlue=true;
+                }
+                if(!checkRed&&(map[redR+dirR[dir]][redC+dirC[dir]]=='#'||(checkBlue&&redR+dirR[dir]==blueR&&redC+dirC[dir]==blueC))){
+                    checkRed=true;
+                }
+
+                if(!checkBlue){
                     blueR+=dirR[dir];
                     blueC+=dirC[dir];
                 }
-                else checkBlue=true;
-                if(map[redR+dirR[dir]][redC+dirC[dir]]!='#'){
+
+                if(!checkRed){
                     redR+=dirR[dir];
                     redC+=dirC[dir];
                 }
-                else checkRed=true;
 
-                if(map[blueR][blueC]=='O'){
+                if(!checkBlue&&map[blueR][blueC]=='O'){
+                    checkBlue=true;
+                    blueR=-1;
+                    blueC=-1;
+
                     possible=false;
-                    break;
+                    hole=false;
                 }
 
-                if(blueR==redR&&blueC==redC) {
-                    possible=false;
-                    break;
-                }
+                if(!checkRed&&map[redR][redC]=='O'){
+                    checkRed=true;
+                    redR=-2;
+                    redC=-2;
 
-                if(map[redR][redC]=='O'){
-                    res=Math.min(res,cnt+1);
                     possible=false;
-                    break;
+                    hole=true;
                 }
             }
-
+            if(hole){
+                res=Math.min(res,cnt+1);
+            }
             if(possible){
                 if(cnt+1<=10){
                     sol(new Node(blueR,blueC),new Node(redR,redC),cnt+1);
