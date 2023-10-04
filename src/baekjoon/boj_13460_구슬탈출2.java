@@ -6,8 +6,6 @@ import java.util.StringTokenizer;
 public class boj_13460_구슬탈출2 {
     static int n,m;
     static char[][] map;
-    static int[] dirR={-1,1,0,0};
-    static int[] dirC={0,0,-1,1};
     static class Node{
         int row,col;
         Node(int row,int col){
@@ -16,6 +14,9 @@ public class boj_13460_구슬탈출2 {
         }
     }
     static Node blue,red;
+
+    static int[] dirR={-1,1,0,0};
+    static int[] dirC={0,0,-1,1};
     static int res;
 
     public static void main(String[] args) throws IOException {
@@ -25,87 +26,111 @@ public class boj_13460_구슬탈출2 {
         n=Integer.parseInt(st.nextToken());
         m=Integer.parseInt(st.nextToken());
         map=new char[n][m];
+
         for(int i=0;i<n;i++){
             String input=in.readLine();
             for(int j=0;j<m;j++){
-                if(input.charAt(j)=='B'){
-                    blue=new Node(i,j);
-                }
-                else if(input.charAt(j)=='R'){
+                map[i][j]=input.charAt(j);
+                if(map[i][j]=='R'){
                     red=new Node(i,j);
                 }
-                else map[i][j]=input.charAt(j);
+                else if(map[i][j]=='B'){
+                    blue=new Node(i,j);
+                }
             }
         }
 
         res=Integer.MAX_VALUE;
-        sol(blue,red,0);
+        sol(map,red,blue,0);
         out.write(String.valueOf(res==Integer.MAX_VALUE?-1:res));
         out.close();
         in.close();
     }
 
-    private static void sol(Node blue, Node red, int cnt) {
+    /**
+     * 해당하는 방향으로 R, B 함께 이동하되, 벽을 만났을 경우 체크하기 (둘 다 벽을 만나면 이동 끝)
+     * 빨간 구슬이 들어가도 파란 구슬이 이동 끝날 때까지 확인하기
+     * */
+    static void sol(char[][] map,Node red,Node blue, int cnt){
         if(cnt>10) return;
 
         for(int dir=0;dir<4;dir++){
-            int blueR=blue.row;
-            int blueC=blue.col;
-            int redR=red.row;
-            int redC=red.col;
+            int r_row=red.row;
+            int r_col=red.col;
+            int b_row=blue.row;
+            int b_col=blue.col;
 
-            boolean checkBlue=false, checkRed=false;
-            boolean possible=true, hole=false;
-
+            boolean impossible=false;
+            boolean r_check=false,b_check=false;
             while(true){
-                if(checkBlue&&checkRed) {
-                    if(blueR==redR&&blueC==redC) possible=false;
+                if(r_check&&b_check) break;
+
+                if(!r_check) {
+                    r_row += dirR[dir];
+                    r_col += dirC[dir];
+                }
+                if(!b_check) {
+                    b_row += dirR[dir];
+                    b_col += dirC[dir];
+                }
+
+                if(!r_check&&map[r_row][r_col]=='#'){
+                    r_row-=dirR[dir];
+                    r_col-=dirC[dir];
+                    r_check=true;
+                }
+
+                if(!b_check&&map[b_row][b_col]=='#'){
+                    b_row-=dirR[dir];
+                    b_col-=dirC[dir];
+                    b_check=true;
+                }
+
+                if(map[b_row][b_col]=='O'||r_row==b_row&&r_col==b_col){
+                    impossible=true;
                     break;
                 }
 
-                if(!checkBlue&&(map[blueR+dirR[dir]][blueC+dirC[dir]]=='#'||(checkRed&&blueR+dirR[dir]==redR&&blueC+dirC[dir]==redC))){
-                    checkBlue=true;
-                }
-                if(!checkRed&&(map[redR+dirR[dir]][redC+dirC[dir]]=='#'||(checkBlue&&redR+dirR[dir]==blueR&&redC+dirC[dir]==blueC))){
-                    checkRed=true;
-                }
-
-                if(!checkBlue){
-                    blueR+=dirR[dir];
-                    blueC+=dirC[dir];
-                }
-
-                if(!checkRed){
-                    redR+=dirR[dir];
-                    redC+=dirC[dir];
-                }
-
-                if(!checkBlue&&map[blueR][blueC]=='O'){
-                    checkBlue=true;
-                    blueR=-1;
-                    blueC=-1;
-
-                    possible=false;
-                    hole=false;
-                }
-
-                if(!checkRed&&map[redR][redC]=='O'){
-                    checkRed=true;
-                    redR=-2;
-                    redC=-2;
-
-                    possible=false;
-                    hole=true;
+                if(!r_check&&map[r_row][r_col]=='O'){
+                    impossible=true;
+                    r_check=true;
+                    res=Math.min(res,cnt+1);
+                    r_row=-1;
+                    r_col=-1;
                 }
             }
-            if(hole){
-                res=Math.min(res,cnt+1);
-            }
-            if(possible){
-                if(cnt+1<=10){
-                    sol(new Node(blueR,blueC),new Node(redR,redC),cnt+1);
-                }
+
+            if(!impossible){
+                char[][] copy=copy(map);
+                copy[red.row][red.col]='.';
+                copy[r_row][r_col]='R';
+                copy[blue.row][blue.col]='.';
+                copy[b_row][b_col]='B';
+                sol(copy,new Node(r_row,r_col),new Node(b_row,b_col),cnt+1);
             }
         }
     }
+
+    static char[][] copy(char[][] map){
+        char[][] copy=new char[n][m];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                copy[i][j]=map[i][j];
+            }
+        }
+        return copy;
+    }
 }
+
+/*
+7 7
+#######
+#...RB#
+#.#####
+#.....#
+#####.#
+#O....#
+#######
+
+5
+ */
