@@ -9,7 +9,6 @@ import java.util.StringTokenizer;
 public class boj_1477_휴게소세우기 {
     static int n,m,len;
     static List<Integer> list;
-    static int max;
 
     public static void main(String[] args) throws IOException {
         BufferedReader in=new BufferedReader(new InputStreamReader(System.in));
@@ -30,15 +29,25 @@ public class boj_1477_휴게소세우기 {
         list.add(len);
         Collections.sort(list);
 
+        int left=1;
+        int right=len-1;
+        while(left<=right) {// = 빼먹지 말기
+            int mid = (left + right) / 2;
 
+            int sum = 0;
+            for (int i = 1; i < list.size(); i++) {
+                sum += (list.get(i) - list.get(i - 1) - 1) / mid;
+            }
 
-        out.write(String.valueOf(max));
+            if (sum > m) {
+                //너무 많이 설치하게 되므로, 나누는 수인 mid를 키우기
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        out.write(String.valueOf(left));
         out.close();
         in.close();
-    }
-
-    static void search(int left,int right,int max){
-        int mid=(left+right)/2;
-
     }
 }
