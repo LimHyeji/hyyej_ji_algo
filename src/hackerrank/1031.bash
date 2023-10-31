@@ -42,3 +42,14 @@ var=$(echo "scale=4; $x" | bc)
 printf "%.3f\n" "$var"
 
 #10
+read n
+
+sum=0
+for ((i=0;i<n;i++))
+do
+    read a
+    sum=$((a+sum))
+done
+
+sum=$(echo "scale=4; $sum/$n" | bc)
+printf "%.3f\n" "$sum"
