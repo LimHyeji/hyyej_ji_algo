@@ -1,4 +1,4 @@
-#6
+#6 수 비교
 read a
 read b
 
@@ -13,7 +13,7 @@ else
     echo "X is equal to Y"
 fi
 
-#7
+#7 조건문
 read a
 
 if [[ $a == "Y" || $a == "y" ]]
@@ -23,7 +23,7 @@ else
     echo "NO"
 fi
 
-#8
+#8 다중 조건문
 read a
 read b
 read c
@@ -35,13 +35,13 @@ then echo "ISOSCELES"
 else echo "SCALENE"
 fi
 
-#9
+#9 입력문 연산
 read x
 
 var=$(echo "scale=4; $x" | bc)
 printf "%.3f\n" "$var"
 
-#10
+#10 평균 계산
 read n
 
 sum=0

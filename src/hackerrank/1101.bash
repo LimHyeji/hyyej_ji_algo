@@ -1,4 +1,4 @@
-#11
+#11 재귀를 통한 출력
 declare -A matrix
 read N
 rows=63

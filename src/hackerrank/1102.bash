@@ -1,4 +1,4 @@
-## Text Processing
+## Text Processing - Cut 명령어
 # 1
 while read line;
 do
