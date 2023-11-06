@@ -33,7 +33,8 @@ public class 팩토리얼0의개수 {
 
             //System.out.println(left+" "+right);
         }
-        out.write(String.valueOf(left));
+        if(flag) out.write(String.valueOf(left));
+        else out.write(String.valueOf(-1));
         out.close();
         in.close();
     }
