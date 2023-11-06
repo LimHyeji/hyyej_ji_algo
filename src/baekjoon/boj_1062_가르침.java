@@ -63,7 +63,7 @@ public class boj_1062_가르침 {
         for(int i=idx;i<26;i++){
             if(!sel[i]){
                 sel[i]=true;
-                sol(idx,cnt+1);
+                sol(i+1,cnt+1);
                 sel[i]=false;
             }
         }
