@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 
-public class Sample2_231128 {
+public class Sample_231128_2 {
     static class Solution {
         int[] func_a(int[] arr) {
             int length = arr.length;
