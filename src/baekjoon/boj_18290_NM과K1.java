@@ -34,6 +34,7 @@ public class boj_18290_NM과K1 {
 
     static int[] dirR={-1,1,0,0};
     static int[] dirC={0,0,-1,1};
+
     static void sol(int cnt,int sum){
         if(cnt==k){
             res=Math.max(res,sum);
