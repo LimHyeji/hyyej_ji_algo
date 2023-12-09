@@ -2,7 +2,7 @@ package baekjoon;
 
 import java.io.*;
 
-public class 팩토리얼0의개수 {
+public class boj_11687_팩토리얼0의개수 {
     static int m;
 
     public static void main(String[] args) throws IOException {
