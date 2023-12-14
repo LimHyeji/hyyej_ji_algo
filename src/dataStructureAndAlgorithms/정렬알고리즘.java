@@ -1,6 +1,6 @@
 package dataStructureAndAlgorithms;
 
-public class SortAlgorithms {
+public class 정렬알고리즘 {
     public void swap(int[] arr, int i,int j){
         int temp=arr[i];
         arr[i]=arr[j];
