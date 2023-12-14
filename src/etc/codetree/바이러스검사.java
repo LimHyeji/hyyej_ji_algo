@@ -40,6 +40,7 @@ public class 바이러스검사 {
             }
             res+=temp;
         }
+
         out.write(String.valueOf(res));
         out.close();
         in.close();
