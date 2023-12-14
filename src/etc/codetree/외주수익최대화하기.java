@@ -7,6 +7,7 @@ import java.util.StringTokenizer;
 
 public class 외주수익최대화하기 {
     static int n;
+    static List<Integer> select;
     static class Work{
         int start,end;
         int profit;
@@ -18,7 +19,6 @@ public class 외주수익최대화하기 {
     }
     static List<Work> works;
     static int res;
-    static List<Integer> select;
 
     public static void main(String[] args) throws IOException {
         BufferedReader in=new BufferedReader(new InputStreamReader(System.in));
