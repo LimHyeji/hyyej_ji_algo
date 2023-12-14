@@ -343,5 +343,6 @@ public class Sample_231127 {
         retInt = sol.문제10(expression);
 
         System.out.println("Solution: return value of the method is " + retInt + " .");
+
     }
 }

@@ -300,5 +300,6 @@ public class Sample_231128 {
         String ret = sol.문제10(s);
 
         System.out.println("solution 메소드의 반환 값은 " + ret + " 입니다.");
+
     }
 }

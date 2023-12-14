@@ -411,6 +411,7 @@ public class Sample_231128_2 {
             int ret10 = sol.문제10(customers, shops);
 
             System.out.println("solution 메소드의 반환 값은 " + ret10 + " 입니다.");
+
         }
     }
 
