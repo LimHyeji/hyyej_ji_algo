@@ -1,4 +1,4 @@
-package cospro;
+package etc.cospro;
 
 import java.util.Arrays;
 

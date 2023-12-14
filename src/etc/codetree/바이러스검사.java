@@ -1,4 +1,4 @@
-package codetree;
+package etc.codetree;
 
 import java.io.*;
 import java.util.Arrays;
