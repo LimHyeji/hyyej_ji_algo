@@ -35,4 +35,3 @@ for ((i=0;i<rows;i++)) do
     printf '\n'
 done
 
-## Text Processing
