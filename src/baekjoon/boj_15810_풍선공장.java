@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class boj15810_풍선공장 {
+public class boj_15810_풍선공장 {
     static int n,m;
     static int[] time;
 
