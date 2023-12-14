@@ -25,6 +25,7 @@ public class 조삼모사 {
         res=Integer.MAX_VALUE;
 
         com(0,0);
+
         out.write(String.valueOf(res));
         out.close();
         in.close();
