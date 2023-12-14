@@ -53,4 +53,3 @@ done
 
 sum=$(echo "scale=4; $sum/$n" | bc)
 printf "%.3f\n" "$sum"
-

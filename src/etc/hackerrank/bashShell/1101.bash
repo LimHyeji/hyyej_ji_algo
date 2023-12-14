@@ -34,4 +34,3 @@ for ((i=0;i<rows;i++)) do
     done
     printf '\n'
 done
-
