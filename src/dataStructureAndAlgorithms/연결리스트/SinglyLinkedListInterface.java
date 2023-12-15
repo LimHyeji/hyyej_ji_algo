@@ -12,9 +12,9 @@ public interface SinglyLinkedListInterface<E> {
 
     int size();
 
-    void remove(E e);
+    E remove(E e);
 
-    void remove(int idx);
+    void removeByIndex(int idx);
 
     void clear();
 
