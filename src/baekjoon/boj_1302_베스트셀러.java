@@ -12,7 +12,7 @@ public class boj_1302_베스트셀러 {
         BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out));
 
         N = Integer.parseInt(in.readLine());
-        map = new TreeMap<>();
+        map = new HashMap<>();
         for (int i = 0; i < N; i++) {
             String title = in.readLine();
             map.put(title, map.getOrDefault(title, 0) + 1);
@@ -27,11 +27,7 @@ public class boj_1302_베스트셀러 {
             }
         });
 
-        for (Map.Entry<String, Integer> entry : entryList) {
-            out.write(entry.getKey());
-            break;
-        }
-
+        out.write(entryList.get(0).getKey());
         out.close();
         in.close();
     }
