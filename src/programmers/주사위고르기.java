@@ -31,7 +31,6 @@ public class 주사위고르기 {
 
         public void getScore(int[] arr, List<Integer> score, int sum, int cnt) {
             if (cnt == n / 2) {
-                //System.out.print(sum+" ");
                 score.add(sum);
                 return;
             }
@@ -47,12 +46,9 @@ public class 주사위고르기 {
 
             scoreA = new ArrayList<>();
             scoreB = new ArrayList<>();
-            //System.out.println("------A-----------");
+
             getScore(a, scoreA, 0, 0);
-            //System.out.println();
-            //System.out.println("-------B------------");
             getScore(b, scoreB, 0, 0);
-            //System.out.println();
 
             Collections.sort(scoreA);
             Collections.sort(scoreB);
@@ -72,8 +68,6 @@ public class 주사위고르기 {
                 }
                 count += left;
             }
-            //System.out.println(count+" 등장");
-            //System.out.println(Arrays.toString(a));
 
             if (count > max) {
                 max = count;
@@ -93,9 +87,6 @@ public class 주사위고르기 {
                 for (int i = 0; i < n; i++) {
                     if (!sel[i]) temp[idx++] = i;
                 }
-
-                //System.out.println("A :: " +Arrays.toString(num));
-                //System.out.println("B :: " +Arrays.toString(temp));
 
                 calculate(num, temp);
                 return;
